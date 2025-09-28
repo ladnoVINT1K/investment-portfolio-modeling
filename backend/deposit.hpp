@@ -61,16 +61,29 @@ class Bank : public Investments {
   
   ~Bank() override {}
 
+  double getSum() {
+    return sum;
+  }
+
+  double getRate() {
+    return bankRate;
+  }
+
   std::string getName(void) {
     return toString(name);
   }
   
   double calculateMonthlyReturn(void) override {
-    return sum + (sum * bankRate / 12.0);
+    return sum + (sum * bankRate / 12.0000);
   }
   
   void updateConditions(const Market& market) override {
-    bankRate = market.bankRate;
+    float eventCoef = 0.0f;
+    auto ptr = market.eventsInThisMonth.find(toString(name));
+    if (ptr != market.eventsInThisMonth.end()) {
+        eventCoef = ptr->second.second;
+    }
+    bankRate = market.bankRate + eventCoef;
     return;
   }
 
@@ -89,5 +102,5 @@ class Bank : public Investments {
  private:
   bank name;
   double sum;
-  float bankRate;
+  double bankRate;
 };
