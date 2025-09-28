@@ -1,19 +1,76 @@
+#pragma once
 #include "investments.hpp"
 #include "market.hpp"
 #include <exception>
-class Deposit : public Investments {
+#include "events.hpp"
+
+enum class bank {
+    FederalReserve,
+    LehmanBrothers,
+    JPMorgan,
+    GoldmanSachs,
+    CreditSuisse,
+    DeutscheBank,
+    UBS,
+    SwissNationalBank,
+    EuropeanCentralBank,
+    BankOfEngland,
+    BankOfJapan,
+    HSBC,
+    Barclays,
+    MorganStanley,
+    WellsFargo,
+    Citigroup,
+    BNPParibas,
+    SocieteGenerale,
+    ING,
+    Santander
+};
+
+inline std::string toString(bank b) {
+    switch (b) {
+        case bank::FederalReserve: return "Federal Reserve";
+        case bank::LehmanBrothers: return "Lehman Brothers";
+        case bank::JPMorgan: return "JP Morgan";
+        case bank::GoldmanSachs: return "Goldman Sachs";
+        case bank::CreditSuisse: return "Credit Suisse";
+        case bank::DeutscheBank: return "Deutsche Bank";
+        case bank::UBS: return "UBS";
+        case bank::SwissNationalBank: return "Swiss National Bank";
+        case bank::EuropeanCentralBank: return "European Central Bank";
+        case bank::BankOfEngland: return "Bank of England";
+        case bank::BankOfJapan: return "Bank of Japan";
+        case bank::HSBC: return "HSBC";
+        case bank::Barclays: return "Barclays";
+        case bank::MorganStanley: return "Morgan Stanley";
+        case bank::WellsFargo: return "Wells Fargo";
+        case bank::Citigroup: return "Citigroup";
+        case bank::BNPParibas: return "BNP Paribas";
+        case bank::SocieteGenerale: return "Societe Generale";
+        case bank::ING: return "ING";
+        case bank::Santander: return "Santander";
+    }
+}
+class Bank : public Investments {
  public:
-  Deposit(double initSum) : 
+  Bank(bank n, double initSum = 0) : 
     sum(initSum),
-    depositRate(0.0)
+    bankRate(0.0),
+    name(n)
   {}
   
+  ~Bank() override {}
+
+  std::string getName(void) {
+    return toString(name);
+  }
+  
   double calculateMonthlyReturn(void) override {
-    return sum + (sum * depositRate / 12.0);
+    return sum + (sum * bankRate / 12.0);
   }
   
   void updateConditions(const Market& market) override {
-    depositRate = market.depositRate;
+    bankRate = market.bankRate;
     return;
   }
 
@@ -30,6 +87,7 @@ class Deposit : public Investments {
   }
 
  private:
+  bank name;
   double sum;
-  float depositRate;
+  float bankRate;
 };

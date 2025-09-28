@@ -1,13 +1,9 @@
 #include <QApplication>
 #include <QMainWindow>
+#include "backend/deposit.hpp"
+#include <iostream>
 
 int main(int argc, char *argv[]) {
-    QApplication app(argc, argv);
-
-    QMainWindow window;
-    window.setWindowTitle("");
-    window.resize(600, 400);
-    window.show();
-
-    return app.exec();
+    Bank T(bank::BankOfEngland);
+    std::cout << T.getName();
 }
