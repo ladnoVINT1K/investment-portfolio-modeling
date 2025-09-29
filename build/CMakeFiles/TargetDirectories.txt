@@ -1,3 +1,0 @@
-/home/vint1k/investment-portfolio-modeling/build/CMakeFiles/QtTest.dir
-/home/vint1k/investment-portfolio-modeling/build/CMakeFiles/edit_cache.dir
-/home/vint1k/investment-portfolio-modeling/build/CMakeFiles/rebuild_cache.dir
